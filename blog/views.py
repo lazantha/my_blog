@@ -3,12 +3,11 @@ from .forms import UserLogForm,UserRegForm,Post
 from .models import UserTable,PostTable
 from django.contrib import messages
 from django.db.models import Q
+
 def home(request):
-
-
-	context={}
+	posts = PostTable.objects.select_related('user_id').values('user_id__name', 'topic', 'link', 'content','created_at')
+	context={'data':posts}
 	return render(request,'blogPages/index.html',context)
-
 
 
 
@@ -77,8 +76,6 @@ def userHome(request):
 	if request.method=='POST':
 		form=Post(request.POST)
 		if form.is_valid():
-			print("name",name)
-			print('email',email)
 			# user_id=UserTable.objects.values('id').filter(Q(name=name)and Q(email=email))
 			user = UserTable.objects.filter(name=name, email=email).first()
 			print(user)

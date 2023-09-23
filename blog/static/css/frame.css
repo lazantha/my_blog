@@ -1,0 +1,18 @@
+h2{
+    color: whitesmoke;
+    font-weight: bold;
+}
+iframe{
+    width: 250px;
+    height: auto;
+}
+.items{
+    padding: 1rem;
+
+}
+.main_container{
+    display: flex;
+    justify-content: flex-start;
+    row-gap: 1re;
+    column-gap: 2rem;
+}

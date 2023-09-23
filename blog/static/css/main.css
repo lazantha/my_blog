@@ -11,7 +11,14 @@
 	--link_active_color:blue;
 
 }
-
+h3{
+	color: whitesmoke;
+	font-weight: bold;
+}
+iframe{
+	width: 250px;
+	height: auto;
+}
 
 a{
 	text-decoration: none;
@@ -80,6 +87,4 @@ ul li a{padding-top: 2rem;
 	left: 90%;
 
 }
-.hrool{
-	
-}
+
