@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
-from .forms import UserLogForm,UserRegForm
-from .models import UserTable
+from .forms import UserLogForm,UserRegForm,Post
+from .models import UserTable,PostTable
 from django.contrib import messages
 from django.db.models import Q
 def home(request):
@@ -33,7 +33,9 @@ def userLogin(request):
 		if form.is_valid():
 			name=form.cleaned_data['name']
 			email=form.cleaned_data['email']
-			
+			request.session['name']=name
+			request.session['email']=email
+			print("session has been set")
 			#database
 			model=UserTable
 			data=model.objects.values('name','email').filter(Q(name=name)and Q(email=email))
@@ -64,6 +66,33 @@ def userSignUp(request):
 
 
 def userHome(request):
+	model=PostTable
+	name=request.session.get('name')
+	email=request.session.get('email')
+	print("name",name)
+	print("email",email)
+	dataset=model.objects.values('topic','content','link')
 
-	context={}
+	form=Post()
+	if request.method=='POST':
+		form=Post(request.POST)
+		if form.is_valid():
+			print("name",name)
+			print('email',email)
+			# user_id=UserTable.objects.values('id').filter(Q(name=name)and Q(email=email))
+			user = UserTable.objects.filter(name=name, email=email).first()
+			print(user)
+			if user:
+				new_post=form.save(commit=False)
+				new_post.user_id=user
+				new_post.save()
+				messages.success(request,'Post Uploaded !')
+				return redirect('userHome')
+
+			# form.save()
+			# messages.success(request,'Post Uploaded !')
+			# return redirect('userHome')
+
+
+	context={'form':form,'dataset':dataset}
 	return render(request,'blogPages/userHome.html',context)

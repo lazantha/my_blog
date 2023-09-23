@@ -51,6 +51,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+SESSION_ENGINE = 'django.contrib.sessions.backends.db' 
+SESSION_SAVE_EVERY_REQUEST=True
+SESSION_EXPIRE_AT_BROWSER_CLOSE=True
+
 ROOT_URLCONF = 'myBlog.urls'
 
 TEMPLATES = [
