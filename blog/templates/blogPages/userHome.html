@@ -25,9 +25,12 @@
 					  <div class="card-body">
 					    <h5 class="card-title">{{row.topic}}</h5>
 					  </div>
+
 					  <div class="card-body">
-					    <a href="#" class="card-link"> <iframe src="{{row.link}}" frameborder="0"></iframe> </a>
+
+					    <iframe width="560" height="315" src="{{row.link}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 					    <p>{{row.content}}</p>
+
 					  </div>
 					  <a class="btn btn-dark btn-sm" href="#" role="button">Delete</a>
 					</div>
@@ -40,13 +43,14 @@
   <div class="p-2 flex-fill">
   		<h3>Upload Post</h3>
   		<div class="form-group w-75">
-  			<form action="{% url 'userHome' %}" method="post">
-  			{% csrf_token %}
-  			{{form.topic}} <br>
-  			{{form.link}} <br>
-  			{{form.content}} <br>
-  			<input type="submit" value="Upload">
-  		</form>
+			<form action="{% url 'userHome' %}" method="post">
+				{% csrf_token %}
+				{{form.topic}} <br>
+				{{form.link}} <br>
+				{{form.category}} <br>
+				{{form.content}} <br>
+				<input type="submit" value="Upload" class="btn btn-success btn btn-sm"> <input type="reset" value="Clear" class="btn btn-warning btn btn-sm">
+			</form>
   		</div>
 
   </div>

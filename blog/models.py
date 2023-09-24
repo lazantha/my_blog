@@ -9,14 +9,18 @@ class UserTable(models.Model):
 	dp=models.FileField(null=True,blank=True)
 	email=models.CharField(max_length=50,null=False)
 	name=models.CharField(max_length=100)
-	
+	def __str__(self):
+		return self.name
 
 class PostTable(models.Model):
 	id=models.AutoField(primary_key=True)
 	user_id=models.ForeignKey(UserTable, on_delete=models.CASCADE)
 	topic=models.CharField(max_length=50)
-	link=models.CharField(max_length=255)
-	content=models.CharField(max_length=1000)
+	link=models.CharField(max_length=350)
+	content=models.CharField(max_length=250)
+	category=models.CharField(max_length=10)
 	created_at = models.DateTimeField(default=timezone.now)
 
+	def __str__(self):
+		return self.category
 

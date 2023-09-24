@@ -22,9 +22,16 @@ class UserRegForm(forms.ModelForm):
 
 
 class Post(forms.ModelForm):
+    CATEGORY_LIST=(
+        ('education','education'),
+        ('Knowledge','knowledge'),
+        ('entertainment','entertainment'),
+        ('other','other')
+    )
+    category=forms.ChoiceField(choices=CATEGORY_LIST,widget=forms.Select(attrs={'class':'form-control'}),required=True)
     class Meta:
         model=PostTable
-        fields=['topic','content','link']
+        fields=['topic','content','link','category']
     topic=forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Topic of the content'}),required=False)
-    link=forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter youtube link here !'}),required=True)
+    link=forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Copy & paste Embeded Link of the video !'}),required=True)
     content=forms.CharField(widget=forms.Textarea(attrs={'class':'form-control','placeholder':'Message body..'}),required=True)

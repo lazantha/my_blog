@@ -7,29 +7,99 @@
 
 
 
+
 {% block content %}
-	
+
+<h2>EDUCATION</h2>
 	<div class="main_container">
-		
-		{% for row in data %}
+		{% for row in data_edu %}
 			<div class="items">
 				<div class="card" style="width: 18rem;">
 					<div class="card-body">
 					  <h5 class="card-title">{{row.topic}}</h5>
-					  <div class="embed-responsive embed-responsive-16by9">
-						<iframe class="embed-responsive-item" src="{{ row.link }}" frameborder="0"></iframe>
+					  <div>
+
+					  	<iframe width="560" height="315" src="{{row.link}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 					  </div>
+					  <br>
+					  <p><a href="{{row.link}}">click here !</a></p>
 					  <p class="card-text">{{row.content}}.</p>
 					  <i>By: {{row.user_id__name}} | Uploaded: {{row.created_at}}</i>
 					</div>
 				  </div>
 			</div>
 		{% endfor %}
-		
+
 	</div>
+
+<hr>
+<h2>KNOWLEDGE</h2>
+<div class="main_container">
 		
+	{% for row in data_know %}
+		<div class="items">
+			<div class="card" style="width: 18rem;">
+				<div class="card-body">
+				  <h5 class="card-title">{{row.topic}}</h5>
+				  <div>
+
+					  <iframe width="560" height="315" src="{{row.link}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+				  </div>
+				  <br>
+				  <p><a href="{{row.link}}">click here !</a></p>
+				  <p class="card-text">{{row.content}}.</p>
+				  <i>By: {{row.user_id__name}} | Uploaded: {{row.created_at}}</i>
+				</div>
+			  </div>
+		</div>
+	{% endfor %}
+
+</div>
+<h2>ENTERTAINMENT</h2>
+<div class="main_container">
 		
-	  
+	{% for row in data_enter %}
+		<div class="items">
+			<div class="card" style="width: 18rem;">
+				<div class="card-body">
+				  <h5 class="card-title">{{row.topic}}</h5>
+				  <div>
+
+					  <iframe width="560" height="315" src="{{row.link}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+				  </div>
+				  <br>
+				  <p><a href="{{row.link}}">click here !</a></p>
+				  <p class="card-text">{{row.content}}.</p>
+				  <i>By: {{row.user_id__name}} | Uploaded: {{row.created_at}}</i>
+				</div>
+			  </div>
+		</div>
+	{% endfor %}
+
+</div>
+
+<h2>OTHER REFERENCES</h2>
+<div class="main_container">
+		
+	{% for row in data_other %}
+		<div class="items">
+			<div class="card" style="width: 18rem;">
+				<div class="card-body">
+				  <h5 class="card-title">{{row.topic}}</h5>
+				  <div>
+
+					  <iframe width="560" height="315" src="{{row.link}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+				  </div>
+				  <br>
+				  <p><a href="{{row.link}}">click here !</a></p>
+				  <p class="card-text">{{row.content}}.</p>
+				  <i>By: {{row.user_id__name}} | Uploaded: {{row.created_at}}</i>
+				</div>
+			  </div>
+		</div>
+	{% endfor %}
+
+</div>
 
 {% endblock %}
 
