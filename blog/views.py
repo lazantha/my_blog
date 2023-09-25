@@ -1,8 +1,20 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from .forms import UserLogForm,UserRegForm,Post
 from .models import UserTable,PostTable
 from django.contrib import messages
 from django.db.models import Q
+
+def contactUs(request):
+
+	context={}
+	return render(request,'blogPages/contactUs.html',context)
+
+
+
+def aboutUs(request):
+
+	context={}
+	return render(request,'blogPages/aboutUs.html',context)
 
 def testing(request):
 
@@ -28,20 +40,6 @@ def home(request):
 	post_other=linkFilter(posts_other)
 	context={'data_edu':post_edu,'data_know':post_know,'data_enter':post_enter,'data_other':post_other}
 	return render(request,'blogPages/index.html',context)
-
-
-
-def contactUs(request):
-
-	context={}
-	return render(request,'blogPages/contactUs.html',context)
-
-
-
-def aboutUs(request):
-
-	context={}
-	return render(request,'blogPages/aboutUs.html',context)
 
 
 
@@ -88,7 +86,7 @@ def userHome(request):
 	model=PostTable
 	name=request.session.get('name')
 	email=request.session.get('email')
-	dataset=model.objects.values('topic','content','link')
+	dataset=model.objects.values('post_id','topic','content','link')
 	for items in dataset:
 		tokens=items['link'].split()
 		path=(tokens[3])
@@ -108,3 +106,29 @@ def userHome(request):
 				return redirect('userHome')
 	context={'form':form,'dataset':dataset}
 	return render(request,'blogPages/userHome.html',context)
+
+
+def delete(request,post_id):
+
+	post=get_object_or_404(PostTable,post_id=post_id)
+	if request.method=='POST':
+		post.delete()
+		return redirect('userHome')
+	return render(request,'blogPages/delete.html')
+
+
+
+# define another class to update post table with cusomized fields
+#this is for all the field to update
+def update(request,post_id):
+
+	post=get_object_or_404(PostTable,post_id=post_id)
+	if request.method=='POST':
+		form=Post(request.POST,instance=post)
+		if form.is_valid():
+			form.save()
+			return redirect('userHome')
+	context={'form':form}
+	return render(request,'blogPages/update.html',context)
+
+

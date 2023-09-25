@@ -1,5 +1,6 @@
 from django import forms
 from .models import UserTable,PostTable
+import re
 
 class UserLogForm(forms.ModelForm):
     class Meta:
@@ -29,9 +30,28 @@ class Post(forms.ModelForm):
         ('other','other')
     )
     category=forms.ChoiceField(choices=CATEGORY_LIST,widget=forms.Select(attrs={'class':'form-control'}),required=True)
+    link=forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Copy & paste Embeded Link of the video !'}),required=True)
+    def clean_link(self):
+        link = self.cleaned_data['link']
+
+        # Define a regular expression pattern to check for the presence of <iframe> tag
+        pattern = r'<iframe.*?</iframe>'
+
+        if not re.search(pattern, link):
+            raise forms.ValidationError("Link should include an <iframe> tag.")
+
+        return link
     class Meta:
         model=PostTable
         fields=['topic','content','link','category']
     topic=forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Topic of the content'}),required=False)
-    link=forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Copy & paste Embeded Link of the video !'}),required=True)
     content=forms.CharField(widget=forms.Textarea(attrs={'class':'form-control','placeholder':'Message body..'}),required=True)
+
+
+
+
+#update posts
+# write separate form class to update 
+# eg:
+# class UpdatePost(forms.ModelForm):
+#     defined customized field  that you want to update

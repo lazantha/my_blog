@@ -10,6 +10,7 @@
 			width: 250px;
 			height: auto;
 		}
+		p{color: whitesmoke;}
 	</style>
 {% endblock %}
 
@@ -25,14 +26,21 @@
 					  <div class="card-body">
 					    <h5 class="card-title">{{row.topic}}</h5>
 					  </div>
-
 					  <div class="card-body">
 
 					    <iframe width="560" height="315" src="{{row.link}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 					    <p>{{row.content}}</p>
 
 					  </div>
-					  <a class="btn btn-dark btn-sm" href="#" role="button">Delete</a>
+					  <form action="{% url 'update' row.post_id %}" method="post">
+					  	{% csrf_token %}
+					  	<button type="submit" class="btn btn-warning btn-sm">Update</button>
+					  </form>
+					  <form action="{% url 'delete' row.post_id %}" method="post">
+					  	{% csrf_token %}
+					  	<button type="submit" class="btn btn-danger btn-sm">Delete</button>
+					  </form>
+					  
 					</div>
 					<br>
 					<hr>
@@ -47,6 +55,11 @@
 				{% csrf_token %}
 				{{form.topic}} <br>
 				{{form.link}} <br>
+				{% if form.link.errors %}
+					{% for error in form.link.errors %}
+							<p>{{error}}</p>
+					{% endfor %}
+				{% endif %}
 				{{form.category}} <br>
 				{{form.content}} <br>
 				<input type="submit" value="Upload" class="btn btn-success btn btn-sm"> <input type="reset" value="Clear" class="btn btn-warning btn btn-sm">
