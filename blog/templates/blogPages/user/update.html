@@ -1,16 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
-</head>
-<body>
-	<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Update Post</button> <a href="{% url 'userHome' %}">Cancel</a>
-</form>
+{% extends 'blogPages/base.html' %}
+{% block head %}
+	<title>update</title>
+{% endblock %}
 
-</body>
-</html>
+{% block content %}
+	<div class="form-group   d-flex justify-content-center">
+		<form method="post" >
+			{% csrf_token %}
+			{{ form.as_p }}
+			<button type="submit" class="btn btn-secondary btn-sm">Update Post</button> <a href="{% url 'userHome' %}" role="button" class="btn btn-secondary btn-sm">Cancel</a>
+			</form>
+	</div>
+{% endblock %}

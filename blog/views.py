@@ -89,28 +89,18 @@ def userSignUp(request):
 
 
 def userHome(request):
+
 	model=PostTable
 	name=request.session.get('name')
 	email=request.session.get('email')
-	dataset=model.objects.values('post_id','topic','content','link')
+	dataset = model.objects.values('post_id', 'topic', 'content', 'link').filter(Q(user_id__name=name) & Q(user_id__email=email))
 	for items in dataset:
 		tokens=items['link'].split()
 		path=(tokens[3])
 		url_src=path.split('"')
 		items['link']=url_src[1]
-	form=Post()
-	if request.method=='POST':
-		form=Post(request.POST)
-		if form.is_valid():
-			# user_id=UserTable.objects.values('id').filter(Q(name=name)and Q(email=email))
-			user = UserTable.objects.filter(name=name, email=email).first()
-			if user:
-				new_post=form.save(commit=False)
-				new_post.user_id=user
-				new_post.save()
-				messages.success(request,'Post Uploaded !')
-				return redirect('userHome')
-	context={'form':form,'dataset':dataset}
+	
+	context={'dataset':dataset}
 	return render(request,'blogPages/user/userHome.html',context)
 
 
@@ -127,7 +117,6 @@ def delete(request,post_id):
 # define another class to update post table with cusomized fields
 #this is for all the field to update
 def update(request,post_id):
-
 	post=get_object_or_404(PostTable,post_id=post_id)
 	if request.method=='POST':
 		form=Post(request.POST,instance=post)
@@ -135,6 +124,23 @@ def update(request,post_id):
 			form.save()
 			return redirect('userHome')
 	context={'form':form}
-	return render(request,'blogPages/update.html',context)
+	return render(request,'blogPages/user/update.html',context)
 
 
+def upload(request):
+	name=request.session.get('name')
+	email=request.session.get('email')
+	form=Post()
+	if request.method=='POST':
+		form=Post(request.POST)
+		if form.is_valid():
+			# user_id=UserTable.objects.values('id').filter(Q(name=name)and Q(email=email))
+			user = UserTable.objects.filter(name=name, email=email).first()
+			if user:
+				new_post=form.save(commit=False)
+				new_post.user_id=user
+				new_post.save()
+				messages.success(request,'Post Uploaded !')
+				return redirect('userHome')
+	context={'form':form}
+	return render('blogPages/user/upload.html',context)

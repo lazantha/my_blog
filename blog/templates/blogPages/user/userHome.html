@@ -11,62 +11,67 @@
 			height: auto;
 		}
 		p{color: whitesmoke;}
+		.upload{
+			position: relative;
+			text-align: center;
+
+		}
+		.upload a{
+			text-decoration: none;
+			font-size: 2em;
+			color: whitesmoke;
+
+
+		}
+.item{
+	padding-right: 0.5rem;
+}
+
+.main-container{
+	display: flex;
+	column-gap: 0.5rem;
+	flex-wrap: wrap;
+}
+h2{
+	margin-left: 2rem;
+}
+hr{
+	border: 1px solid whitesmoke;
+	width: 50%;
+}
+		
 	</style>
 {% endblock %}
 
 {% block content %}
 
-	
-<div class="d-flex">
-  <div class="p-2 flex-fill">
-  		<h3>Your Post </h3>
-  		{% for row in dataset %}
-  			<div class="card" style="width: 18rem;">
-					  <!-- <img src="..." class="card-img-top" alt="..."> -->
-					  <div class="card-body">
-					    <h5 class="card-title">{{row.topic}}</h5>
-					  </div>
-					  <div class="card-body">
+<div class="upload" >
+	<a href="{% url 'upload' %}">Upload Posts</a>
+</div>
 
-					    <iframe width="560" height="315" src="{{row.link}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-					    <p>{{row.content}}</p>
-
-					  </div>
-					  <form action="{% url 'update' row.post_id %}" method="post">
-					  	{% csrf_token %}
-					  	<button type="submit" class="btn btn-warning btn-sm">Update</button>
-					  </form>
-					  <form action="{% url 'delete' row.post_id %}" method="post">
-					  	{% csrf_token %}
-					  	<button type="submit" class="btn btn-danger btn-sm">Delete</button>
-					  </form>
-					  
-					</div>
-					<br>
-					<hr>
-  		{% endfor %}
-
-
-  </div>
-  <div class="p-2 flex-fill">
-  		<h3>Upload Post</h3>
-  		<div class="form-group w-75">
-			<form action="{% url 'userHome' %}" method="post">
-				{% csrf_token %}
-				{{form.topic}} <br>
-				{{form.link}} <br>
-				{% if form.link.errors %}
-					{% for error in form.link.errors %}
-							<p>{{error}}</p>
-					{% endfor %}
-				{% endif %}
-				{{form.category}} <br>
-				{{form.content}} <br>
-				<input type="submit" value="Upload" class="btn btn-success btn btn-sm"> <input type="reset" value="Clear" class="btn btn-warning btn btn-sm">
-			</form>
-  		</div>
-
-  </div>
+<h2>Your Posts</h2>
+<hr>
+<div class="main-container">
+    {% for row in dataset %}   
+    <div class="item">
+        <div class="card card bg-black text-white ps-5" style="width: 18rem;">
+            <div class="card-body ">
+            <h5 class="card-title"> {{row.topic}}</h5>
+            <iframe src="{{row.link}}" frameborder="0"></iframe>
+            <h6 class="card-subtitle mb-2 text-body-secondary">{{row.content}}</h6></p>
+            <p>uploaded by:{{row.post_id__name}} at: {{row.created_at}}</p>
+			<form method="post" action="{% url 'update' row.post_id %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-link "  style="color: green;text-decoration: none;">Update</button>
+            </form>
+            <form method="post" action="{% url 'delete' row.post_id %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-link" style="color: red;text-decoration: none;">Delete</button>
+            </form>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
 </div>
 
 
