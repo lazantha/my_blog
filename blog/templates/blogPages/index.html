@@ -1,105 +1,90 @@
 {% extends 'blogPages/base.html' %}
 {% load static %}
 {% block head %}
-	<title>Home</title>
-	<link rel="stylesheet" href="{% static '/css/frame.css' %}">
+     <link rel="stylesheet" href="{% static 'css/test_index_2.css' %}">
+
+
 {% endblock %}
 
-
-
-
 {% block content %}
+<hr id="header-hr">
 
+    <div class="sign">
+        <a href="{% url 'userLogin' %}">Sign In</a>    
+    </div>
+    
+<!-- first section -->
 <h2>EDUCATION</h2>
-	<div class="main_container">
-		{% for row in data_edu %}
-			<div class="items">
-				<div class="card" style="width: 18rem;">
-					<div class="card-body">
-					  <h5 class="card-title">{{row.topic}}</h5>
-					  <div>
+<div class="main-container">
+    {% for row in data_edu %}   
+    <div class="item">
+        <div class="card card bg-black text-white ps-5" style="width: 18rem;">
+            <div class="card-body ">
+            <h5 class="card-title"> {{row.topic}}</h5>
+            <iframe src="{{row.link}}" frameborder="0"></iframe>
+            <h6 class="card-subtitle mb-2 text-body-secondary">{{row.content}}</h6></p>
+            <p>uploaded by:{{row.post_id__name}} at: {{row.created_at}}</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
 
-					  	<iframe width="560" height="315" src="{{row.link}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-					  </div>
-					  <br>
-					  <p><a href="{{row.link}}">click here !</a></p>
-					  <p class="card-text">{{row.content}}.</p>
-					  <i>By: {{row.user_id__name}} | Uploaded: {{row.created_at}}</i>
-					</div>
-				  </div>
-			</div>
-		{% endfor %}
-
-	</div>
-
-<hr>
+<!-- second section -->
 <h2>KNOWLEDGE</h2>
-<div class="main_container">
-		
-	{% for row in data_know %}
-		<div class="items">
-			<div class="card" style="width: 18rem;">
-				<div class="card-body">
-				  <h5 class="card-title">{{row.topic}}</h5>
-				  <div>
-
-					  <iframe width="560" height="315" src="{{row.link}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-				  </div>
-				  <br>
-				  <p><a href="{{row.link}}">click here !</a></p>
-				  <p class="card-text">{{row.content}}.</p>
-				  <i>By: {{row.user_id__name}} | Uploaded: {{row.created_at}}</i>
-				</div>
-			  </div>
-		</div>
-	{% endfor %}
-
+<div class="main-container">
+    {% for row in data_know %}   
+    <div class="item">
+        <div class="card card bg-black text-white ps-5" style="width: 18rem;">
+            <div class="card-body ">
+            <h5 class="card-title"> {{row.topic}}</h5>
+            <iframe src="{{row.link}}" frameborder="0"></iframe>
+            <h6 class="card-subtitle mb-2 text-body-secondary">{{row.content}}</h6></p>
+            <p>uploaded by:{{row.post_id__name}} at: {{row.created_at}}</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
 </div>
+
+<!-- third section -->
 <h2>ENTERTAINMENT</h2>
-<div class="main_container">
-		
-	{% for row in data_enter %}
-		<div class="items">
-			<div class="card" style="width: 18rem;">
-				<div class="card-body">
-				  <h5 class="card-title">{{row.topic}}</h5>
-				  <div>
-
-					  <iframe width="560" height="315" src="{{row.link}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-				  </div>
-				  <br>
-				  <p><a href="{{row.link}}">click here !</a></p>
-				  <p class="card-text">{{row.content}}.</p>
-				  <i>By: {{row.user_id__name}} | Uploaded: {{row.created_at}}</i>
-				</div>
-			  </div>
-		</div>
-	{% endfor %}
-
+<div class="main-container">
+    {% for row in data_enter %}   
+    <div class="item">
+        <div class="card card bg-black text-white ps-5" style="width: 18rem;">
+            <div class="card-body ">
+            <h5 class="card-title"> {{row.topic}}</h5>
+            <iframe src="{{row.link}}" frameborder="0"></iframe>
+            <h6 class="card-subtitle mb-2 text-body-secondary">{{row.content}}</h6></p>
+            <p>uploaded by:{{row.post_id__name}} at: {{row.created_at}}</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
 </div>
 
-<h2>OTHER REFERENCES</h2>
-<div class="main_container">
-		
-	{% for row in data_other %}
-		<div class="items">
-			<div class="card" style="width: 18rem;">
-				<div class="card-body">
-				  <h5 class="card-title">{{row.topic}}</h5>
-				  <div>
-
-					  <iframe width="560" height="315" src="{{row.link}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-				  </div>
-				  <br>
-				  <p><a href="{{row.link}}">click here !</a></p>
-				  <p class="card-text">{{row.content}}.</p>
-				  <i>By: {{row.user_id__name}} | Uploaded: {{row.created_at}}</i>
-				</div>
-			  </div>
-		</div>
-	{% endfor %}
-
+<!-- forth section -->
+<h2>OTHERS</h2>
+<div class="main-container">
+    {% for row in data_other %}   
+    <div class="item">
+        <div class="card card bg-black text-white ps-5" style="width: 18rem;">
+            <div class="card-body ">
+            <h5 class="card-title"> {{row.topic}}</h5>
+            <iframe src="{{row.link}}" frameborder="0"></iframe>
+            <h6 class="card-subtitle mb-2 text-body-secondary">{{row.content}}</h6></p>
+            <p>uploaded by:{{row.post_id__name}} at: {{row.created_at}}</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
 </div>
+
+
+
+
+<hr id="footer-hr">
 
 {% endblock %}
 

@@ -43,6 +43,12 @@ def home(request):
 
 
 
+def adminPost(request):
+
+	context={}
+	return render(request,'blogPages/user/adminPost.html',context)
+
+
 def userLogin(request):
 	form=UserLogForm()
 	if request.method=='POST':
@@ -65,7 +71,7 @@ def userLogin(request):
 				print("Not exist")
 			
 	context={'form':form}
-	return render(request,'blogPages/userLogin.html',context)
+	return render(request,'blogPages/user/userLogin.html',context)
 
 
 
@@ -79,7 +85,7 @@ def userSignUp(request):
 			return redirect('userLogin')
 			
 	context={'form':form}
-	return render(request,'blogPages/userReg.html',context)
+	return render(request,'blogPages/user/userReg.html',context)
 
 
 def userHome(request):
@@ -105,7 +111,7 @@ def userHome(request):
 				messages.success(request,'Post Uploaded !')
 				return redirect('userHome')
 	context={'form':form,'dataset':dataset}
-	return render(request,'blogPages/userHome.html',context)
+	return render(request,'blogPages/user/userHome.html',context)
 
 
 def delete(request,post_id):
