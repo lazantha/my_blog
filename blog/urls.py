@@ -13,6 +13,7 @@ urlpatterns = [
 	path('update/<int:post_id>/', views.update,name='update'),
 	path('adminPost/', views.adminPost,name='adminPost'),
     path('upload/', views.upload,name='upload'),
+    path('signOut/', views.signOut,name='signOut'),
     
     
     

@@ -9,7 +9,7 @@
 {% block content %}
     
     
-<div class="form-group w-75">
+<div class="form-group d-flex justify-content-center">
 	<form action="{% url 'upload' %}" method="post">
 		{% csrf_token %}
 		{{form.topic}} <br>
@@ -21,7 +21,7 @@
 		{% endif %}
 		{{form.category}} <br>
 		{{form.content}} <br>
-		<input type="submit" value="Upload" class="btn btn-success btn btn-sm"> <input type="reset" value="Clear" class="btn btn-warning btn btn-sm">
+		<input type="submit" value="Upload" class="btn btn-secondary btn btn-sm"> <input type="reset" value="Clear" class="btn btn-secondary btn btn-sm">
 	</form>
   </div> 
   

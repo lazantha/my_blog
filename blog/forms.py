@@ -1,5 +1,5 @@
 from django import forms
-from .models import UserTable,PostTable
+from .models import UserTable,PostTable,ContactTable
 import re
 
 class UserLogForm(forms.ModelForm):
@@ -27,7 +27,7 @@ class Post(forms.ModelForm):
         ('education','education'),
         ('Knowledge','knowledge'),
         ('entertainment','entertainment'),
-        ('other','other')
+        ('fitness','fitness')
     )
     category=forms.ChoiceField(choices=CATEGORY_LIST,widget=forms.Select(attrs={'class':'form-control'}),required=True)
     link=forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Copy & paste Embeded Link of the video !'}),required=True)
@@ -48,6 +48,15 @@ class Post(forms.ModelForm):
     content=forms.CharField(widget=forms.Textarea(attrs={'class':'form-control','placeholder':'Message body..'}),required=True)
 
 
+
+class ContactForm(forms.ModelForm):
+    class Meta:
+        model=ContactTable
+        fields='__all__'
+    email=forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Email'}))
+    statement=forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Statemets'}))
+
+    
 
 
 #update posts

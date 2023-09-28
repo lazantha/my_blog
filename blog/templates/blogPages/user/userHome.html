@@ -39,15 +39,34 @@ hr{
 	border: 1px solid whitesmoke;
 	width: 50%;
 }
+.signOut{
+	position: absolute;
+	left: 90%;
+	top: 10%;
+
+}
+
+.signOut>a{
+	font-size: 1.3rem;
+	text-decoration: none;
+
+}
+
 		
 	</style>
 {% endblock %}
 
 {% block content %}
 
+<div class="signOut">
+	<a href="{% url 'signOut' %}">Sign Out</a>    
+</div>
+
+
 <div class="upload" >
 	<a href="{% url 'upload' %}">Upload Posts</a>
 </div>
+
 
 <h2>Your Posts</h2>
 <hr>

@@ -1,19 +1,32 @@
 from django.shortcuts import render,redirect,get_object_or_404
-from .forms import UserLogForm,UserRegForm,Post
+from .forms import UserLogForm,UserRegForm,Post,ContactForm
 from .models import UserTable,PostTable
 from django.contrib import messages
 from django.db.models import Q
 
-def contactUs(request):
 
+def signOut(request):
+
+	request.session.pop('name',None)
+	request.session.pop('email',None)
+	return redirect('userLogin')
+	
+def contactUs(request):
+	
 	context={}
 	return render(request,'blogPages/contactUs.html',context)
 
 
 
 def aboutUs(request):
-
-	context={}
+	form=ContactForm()
+	if request.method=='POST':
+		form=ContactForm(request.POST)
+		if form.is_valid():
+			form.save()
+			messages.success('Thanks For The FeedBack !')
+			return redirect('aboutUs')
+	context={'form':form}
 	return render(request,'blogPages/aboutUs.html',context)
 
 def testing(request):
@@ -26,7 +39,7 @@ def home(request):
 	posts_edu = PostTable.objects.select_related('user_id').values('user_id__name', 'topic', 'link', 'content','created_at').filter(category='education').order_by('created_at')
 	posts_know = PostTable.objects.select_related('user_id').values('user_id__name', 'topic', 'link', 'content','created_at').filter(category='knowledge').order_by('created_at')
 	posts_enter = PostTable.objects.select_related('user_id').values('user_id__name', 'topic', 'link', 'content','created_at').filter(category='entertainment').order_by('created_at')
-	posts_other = PostTable.objects.select_related('user_id').values('user_id__name', 'topic', 'link', 'content','created_at').filter(category='other').order_by('created_at')
+	posts_fitness = PostTable.objects.select_related('user_id').values('user_id__name', 'topic', 'link', 'content','created_at').filter(category='fitness').order_by('created_at')
 	def linkFilter(dataset):
 		for items in dataset:
 			tokens=items['link'].split()
@@ -37,8 +50,8 @@ def home(request):
 	post_edu=linkFilter(posts_edu)
 	post_know=linkFilter(posts_know)
 	post_enter=linkFilter(posts_enter)
-	post_other=linkFilter(posts_other)
-	context={'data_edu':post_edu,'data_know':post_know,'data_enter':post_enter,'data_other':post_other}
+	post_fitness=linkFilter(posts_fitness)
+	context={'data_edu':post_edu,'data_know':post_know,'data_enter':post_enter,'data_fitness':post_fitness}
 	return render(request,'blogPages/index.html',context)
 
 
@@ -143,4 +156,5 @@ def upload(request):
 				messages.success(request,'Post Uploaded !')
 				return redirect('userHome')
 	context={'form':form}
-	return render('blogPages/user/upload.html',context)
+	return render(request,'blogPages/user/upload.html',context)
+
