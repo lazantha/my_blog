@@ -37,7 +37,7 @@ def testing(request):
 
 def home(request):
 	posts_edu = PostTable.objects.select_related('user_id').values('user_id__name', 'topic', 'link', 'content','created_at').filter(category='education').order_by('created_at')
-	posts_know = PostTable.objects.select_related('user_id').values('user_id__name', 'topic', 'link', 'content','created_at').filter(category='knowledge').order_by('created_at')
+	posts_know = PostTable.objects.select_related('user_id').values('user_id__name', 'topic', 'link', 'content','created_at').filter(category='Knowledge').order_by('created_at')
 	posts_enter = PostTable.objects.select_related('user_id').values('user_id__name', 'topic', 'link', 'content','created_at').filter(category='entertainment').order_by('created_at')
 	posts_fitness = PostTable.objects.select_related('user_id').values('user_id__name', 'topic', 'link', 'content','created_at').filter(category='fitness').order_by('created_at')
 	def linkFilter(dataset):
@@ -106,7 +106,7 @@ def userHome(request):
 	model=PostTable
 	name=request.session.get('name')
 	email=request.session.get('email')
-	dataset = model.objects.values('post_id', 'topic', 'content', 'link').filter(Q(user_id__name=name) & Q(user_id__email=email))
+	dataset = model.objects.values('post_id', 'topic', 'content', 'link','created_at').filter(Q(user_id__name=name) & Q(user_id__email=email))
 	for items in dataset:
 		tokens=items['link'].split()
 		path=(tokens[3])

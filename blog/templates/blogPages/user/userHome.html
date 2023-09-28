@@ -77,8 +77,8 @@ hr{
             <div class="card-body ">
             <h5 class="card-title"> {{row.topic}}</h5>
             <iframe src="{{row.link}}" frameborder="0"></iframe>
-            <h6 class="card-subtitle mb-2 text-body-secondary">{{row.content}}</h6></p>
-            <p>uploaded by:{{row.post_id__name}} at: {{row.created_at}}</p>
+            <p class="card-subtitle mb-2 text-light-emphasis">{{row.content}}</p></p>
+            <p>at: {{row.created_at}}</p>
 			<form method="post" action="{% url 'update' row.post_id %}">
                 {% csrf_token %}
                 <button type="submit" class="btn btn-link "  style="color: green;text-decoration: none;">Update</button>
