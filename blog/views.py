@@ -57,8 +57,8 @@ def home(request):
 
 
 def adminPost(request):
-
-	context={}
+	data=PostTable.objects.select_related('user_id').values('topic','link','content','created_at').filter(user_id__name='admin')
+	context={'data':data}
 	return render(request,'blogPages/user/adminPost.html',context)
 
 
