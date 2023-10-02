@@ -129,6 +129,7 @@ def delete(request,post_id):
 
 # define another class to update post table with cusomized fields
 #this is for all the field to update
+
 def update(request,post_id):
 	post=get_object_or_404(PostTable,post_id=post_id)
 	if request.method=='POST':
